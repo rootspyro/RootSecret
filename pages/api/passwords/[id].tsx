@@ -1,9 +1,19 @@
-export default function passwordsHandler( req,res ) { 
+import { PrismaClient } from "@prisma/client";
+export default async function passwordsHandler( req,res ) { 
+
+	const prisma = new PrismaClient();
+
+	async function getUsers() { 
+		const usersList = await prisma.app_users.findMany();
+		return usersList;
+	}
 
 	switch(req.method) { 
 		// GET THE LIST OF PASSWORDS
 		case 'GET' : 
-			res.json({method: "GET"}).end();
+			const users = await getUsers();
+			console.log(users);
+			res.json(users);
 			break;
 
 		// CREATE A NEW PASSWORD
