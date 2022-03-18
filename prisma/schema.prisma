@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PG_HOST")
+}
+
+model app_users {
+  id             Int              @id @default(autoincrement())
+  username       String           @db.VarChar
+  email          String           @db.VarChar
+  password       String           @db.VarChar
+  user_passwords user_passwords[]
+}
+
+model user_passwords {
+  id        Int       @id(map: "user_passwors_pkey") @default(autoincrement())
+  appname   String    @db.VarChar
+  username  String?   @db.VarChar
+  email     String?   @db.VarChar
+  epassword String    @db.VarChar
+  iv        String    @db.VarChar
+  user_id   Int
+  app_users app_users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_passwors_user_id_fkey")
+}
