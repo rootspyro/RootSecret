@@ -12,12 +12,16 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 
 		if ( user != null ) { 
 			res.json({ 
-				token : jwt.sign({ id : user.id }, process.env.SECRET),
+				token : jwt.sign({ 
+					id : user.id,
+					username : user.username,
+					email : user.email,
+				}, process.env.SECRET),
 			})
 		}
 
 		else { 
-			res.json(null);
+			res.json({ error :  "Invalid username or password" })
 		}
 
 	}
