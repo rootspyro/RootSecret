@@ -1,18 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import passwServices from "../../../services/passw-services";
 export default async function passwordsHandler( req,res ) { 
-
-	const prisma = new PrismaClient();
-
-	async function getUsers() { 
-		const usersList = await prisma.app_users.findMany();
-		return usersList;
-	}
 
 	switch(req.method) { 
 		// GET THE LIST OF PASSWORDS
 		case 'GET' : 
-			const users = await getUsers();
-			console.log(users);
+			const users = await passwServices.getUsers();
 			res.json(users);
 			break;
 
