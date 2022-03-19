@@ -1,3 +1,5 @@
+import {GetServerSideProps} from "next";
+
 export default function Index(){
 
 	async function getUsers(){
@@ -13,4 +15,21 @@ export default function Index(){
 			<button onClick={()=>getUsers()}>Get Users</button>
 		</div>
 	)
+}
+
+export const getServerSideProps : GetServerSideProps = async (context) => {
+	
+	const cookies = context.req.cookies;
+
+	if ( !cookies.authorization ) { 
+		return { 
+			redirect : {
+				permanent : false,
+				destination : '/session/login'
+			},
+			props : {}
+		}
+	}
+
+	return { props : {} }
 }

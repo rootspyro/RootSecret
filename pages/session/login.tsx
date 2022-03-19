@@ -1,5 +1,6 @@
 import { useState } from "react"
-import jwt from "jsonwebtoken"
+import { GetServerSideProps } from "next"
+import Router from "next/router"
 
 export default function Login(){
 
@@ -23,10 +24,13 @@ export default function Login(){
 		const response = await data.json()
 
 		if ( response.error ) { 
+
 			console.log(response.error)
+
 		} else {
-			const token = jwt.decode(response.token)
-			console.log(token)
+
+			Router.push("/")
+
 		}
 
 	} 
@@ -40,4 +44,21 @@ export default function Login(){
 			</form>
 		</>
 	)
+}
+
+export const getServerSideProps : GetServerSideProps = async (context) => {
+	
+	const cookies = context.req.cookies;
+
+	if ( cookies.authorization ) { 
+		return { 
+			redirect : {
+				permanent : false,
+				destination : '/'
+			},
+			props : {}
+		}
+	}
+
+	return { props : {} }
 }

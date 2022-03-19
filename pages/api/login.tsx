@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import sessionServices from "../../services/session-services";
 import jwt from "jsonwebtoken";
+import { setCookies } from "cookies-next";
 
 export default async function Login(req : NextApiRequest, res : NextApiResponse) { 
 
@@ -11,18 +12,25 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 
 
 		if ( user != null ) { 
-			res.json({ 
-				token : jwt.sign({ 
-					id : user.id,
-					username : user.username,
-					email : user.email,
-				}, process.env.SECRET),
-			})
-		}
+			const token = jwt.sign({ 
+
+				id : user.id,
+				email : user.email,
+				username : user.username,
+
+			}, process.env.SECRET);
+
+			let exDate = new Date();
+			exDate.setDate(exDate.getDate() + 1);
+
+			setCookies("authorization", token, { req, res, expires: exDate, httpOnly : true } );
+			res.json({success : "user login"})
+
+		} 
 
 		else { 
 			res.json({ error :  "Invalid username or password" })
 		}
-
 	}
 }
+

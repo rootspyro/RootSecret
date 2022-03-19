@@ -4,8 +4,10 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function getUsers(){
+	prisma.$connect();
 	const usersList = await prisma.app_users.findMany();
 	return usersList;
+	prisma.$disconnect();
 }
 
 
