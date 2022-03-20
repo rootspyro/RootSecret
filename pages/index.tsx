@@ -1,4 +1,5 @@
 import {GetServerSideProps} from "next";
+import Router from "next/router";
 
 export default function Index(){
 
@@ -9,10 +10,29 @@ export default function Index(){
 		console.log(data);
 
 	}
+
+	async function logout(){
+
+		const response = await fetch("/api/session/logout", {
+			method : "POST"
+		})
+
+		const data = await response.json();
+
+		if ( data.success ) { 
+
+			Router.push("/session/login");
+
+		}
+
+	}
+
 	return(
 		<div>
 			<h1>RootSecret</h1>
 			<h3>Password Manager</h3>
+			<br/>
+			<button onClick={logout}>Logout</button>
 		</div>
 	)
 }

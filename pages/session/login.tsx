@@ -17,7 +17,7 @@ export default function Login(){
 			password : password
 		}
 
-		const data = await fetch("/api/login", {
+		const data = await fetch("/api/session/login", {
 			method : "POST",
 			body : JSON.stringify(requestBody),
 		})

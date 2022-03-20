@@ -22,7 +22,7 @@ export default function Register(){
 			const userData = { username, email, password };
 			userData.email = userData.email.toLowerCase();
 
-			const data = await fetch("/api/register", {
+			const data = await fetch("/api/session/register", {
 				method : "POST",
 				body : JSON.stringify(userData)
 			})

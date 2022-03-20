@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import sessionServices from "../../services/session-services";
+import sessionServices from "../../../services/session-services";
 import jwt from "jsonwebtoken";
 import { setCookies } from "cookies-next";
 
