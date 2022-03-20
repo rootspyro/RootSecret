@@ -147,6 +147,22 @@ async function AddPassword( userData : any , userId : number ) {
 }
 
 
-const passwServices = { AddPassword, GetPasswords , SendPassword };
+async function DeletePassword( id : number ) { 
+
+	prisma.$connect();
+
+	const response = await prisma.user_passwords.delete({
+		where : {
+			id : id
+		}
+	})
+
+	return {  success : true , message : "Password deleted successfully" }
+
+	prisma.$disconnect();
+
+}
+
+const passwServices = { AddPassword, GetPasswords , SendPassword, DeletePassword };
 
 export default passwServices;
