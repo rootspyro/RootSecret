@@ -5,20 +5,6 @@ import Router from "next/router";
 
 export default function Index(){
 
-	async function getUsers(){
-
-		const token = getCookie("authorization");
-		const decoded = jwt.decode(token);
-
-		const apiUrl = "/api/password/" + decoded.id;
-
-		const users = await fetch('http://localhost:3000/api/passwords/1');
-		const data = await users.json();
-
-		console.log(data);
-
-	}
-
 	async function logout(){
 
 		const response = await fetch("/api/session/logout", {
@@ -39,7 +25,6 @@ export default function Index(){
 		<div>
 			<h1>RootSecret</h1>
 			<h3>Password Manager</h3>
-			<button onClick={getUsers}>Get Passwords</button>
 			<br/>
 			<button onClick={logout}>Logout</button>
 		</div>

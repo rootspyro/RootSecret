@@ -16,11 +16,12 @@ model app_users {
 }
 
 model user_passwords {
-  id        Int       @id(map: "user_passwors_pkey") @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   appname   String    @db.VarChar
   username  String?   @db.VarChar
   email     String?   @db.VarChar
-  epassword String    @db.VarChar
+  iv        String    @db.VarChar
+  epassword String?   @db.VarChar
   user_id   Int
-  app_users app_users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_passwors_user_id_fkey")
+  app_users app_users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
