@@ -10,7 +10,6 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 		const data = JSON.parse(req.body);
 		const user = await sessionServices.Login(data);
 
-
 		if ( user != null ) { 
 			const token = jwt.sign({ 
 
@@ -23,7 +22,7 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 			let exDate = new Date();
 			exDate.setDate(exDate.getDate() + 1);
 
-			setCookies("authorization", token, { req, res, expires: exDate, httpOnly : true } );
+			setCookies("authorization", token, { req, res, expires: exDate} );
 			res.json({success : "user login"})
 
 		} 

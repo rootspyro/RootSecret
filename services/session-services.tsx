@@ -117,7 +117,7 @@ async function Login( userData : any ) {
 // END OF SESSION FUNCTIONS
 
 
-const sessionServices = { Login, Register };
+const sessionServices = { Login, Register, validatePassword };
 
 export default sessionServices;
 
