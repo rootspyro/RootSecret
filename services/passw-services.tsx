@@ -5,6 +5,22 @@ import crypto from "crypto";
 const prisma = new PrismaClient();
 
 
+function DecryptPassword ( iv : string, encrypted : string ) { 
+
+	const algorithm = 'aes-256-cbc';
+	const key = process.env.CRYPTO_SECRET;
+
+	const decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), Buffer.from(iv, 'hex'));
+
+	let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+
+	decrypted += decipher.final('utf8');
+
+	return decrypted;
+
+}
+
+
 function EncryptPassword( password : string ) {
 
 	// encrypt password
@@ -24,6 +40,26 @@ function EncryptPassword( password : string ) {
 
 }
 
+async function GetPasswords( id : number ) { 
+
+	prisma.$connect()
+
+	const passwordList = await prisma.user_passwords.findMany({
+		where : {
+			user_id : id
+		}
+	})
+
+	if ( passwordList === null ) {
+		prisma.$disconnect();
+		return [];
+	} 
+
+	else { 
+		prisma.$disconnect();
+		return passwordList;
+	}
+}
 
 async function AddPassword( userData : any , userId : number ) { 
 
@@ -87,6 +123,6 @@ async function AddPassword( userData : any , userId : number ) {
 }
 
 
-const passwServices = { AddPassword };
+const passwServices = { AddPassword, GetPasswords };
 
 export default passwServices;

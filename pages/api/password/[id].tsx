@@ -3,11 +3,13 @@ import { NextApiRequest,  NextApiResponse } from "next";
 
 export default async function passwordsHandler( req : NextApiRequest ,res : NextApiResponse) { 
 
+	const { id } = req.query;
+
 	switch(req.method) { 
 		// GET THE LIST OF PASSWORDS
 		case 'GET' : 
-			const users = await passwServices.getUsers();
-			res.json(users);
+			const passwords = await passwServices.GetPasswords(parseInt(id[0]));
+			res.json(passwords);
 			break;
 
 
@@ -15,7 +17,6 @@ export default async function passwordsHandler( req : NextApiRequest ,res : Next
 		case 'POST' :
 
 			const userData = await JSON.parse(req.body);
-			const { id } = req.query;
 
 			const newPassword = await passwServices.AddPassword(userData, parseInt(id[0]));
 			console.log(newPassword);
