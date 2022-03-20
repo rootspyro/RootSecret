@@ -17,7 +17,7 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 				email : user.email,
 				username : user.username,
 
-			}, process.env.SECRET);
+			}, process.env.JWT_SECRET);
 
 			let exDate = new Date();
 			exDate.setDate(exDate.getDate() + 1);

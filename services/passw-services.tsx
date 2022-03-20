@@ -5,18 +5,22 @@ import crypto from "crypto";
 const prisma = new PrismaClient();
 
 
-function EncryptPassword( password : string, iv : string ) {
+function EncryptPassword( password : string ) {
 
 	// encrypt password
 	//
 	const algorithm = 'aes-256-cbc';
-	const key = process.env.SECRET;
+	const iv = crypto.randomBytes(16);
+	const key = process.env.CRYPTO_SECRET;
 
-	const cipher = crypto.createCipheriv(algorithm, key, iv);
+
+	const cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
 
 	let encrypted = cipher.update(password, 'utf8', 'hex');
 
-	return encrypted ;
+	encrypted += cipher.final('hex');
+
+	return {  iv : iv.toString('hex'), encrypted : encrypted }
 
 }
 
@@ -26,7 +30,7 @@ async function AddPassword( userData : any , userId : number ) {
 	prisma.$connect()
 
 	// USER PASSWORD AUTH
-	const iv = userData.userPassword; 
+	const rootPassword = userData.userPassword; 
 
 	const pHash = await prisma.app_users.findFirst({
 		select : {
@@ -38,11 +42,13 @@ async function AddPassword( userData : any , userId : number ) {
 	})
 
 
+
 	// VALIDATE PASSWORD
 
-	if ( sessionServices.validatePassword(iv , pHash.password) ) { 
+	if ( sessionServices.validatePassword(rootPassword, pHash.password) ) { 
 
-
+		// ENCRYPT PASSWORD
+		const pEncrypted = EncryptPassword(userData.password);
 
 		// ADD PASSWORD
 		const pData : any = { 
@@ -50,8 +56,8 @@ async function AddPassword( userData : any , userId : number ) {
 			appname : userData.appName,
 			username : userData.username,
 			email : userData.email,
-			iv : "test",
-			epassword : userData.password,
+			iv : pEncrypted.iv,
+			epassword : pEncrypted.encrypted,
 			user_id : userId
 
 		}
