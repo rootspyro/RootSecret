@@ -40,6 +40,7 @@ function EncryptPassword( password : string ) {
 
 }
 
+
 async function GetPasswords( id : number ) { 
 
 	prisma.$connect()
@@ -60,6 +61,29 @@ async function GetPasswords( id : number ) {
 		return passwordList;
 	}
 }
+
+
+async function SendPassword( id : number ) { 
+
+	prisma.$connect();
+
+	const ePassword = await prisma.user_passwords.findFirst({
+		select : { 
+			iv : true,
+			epassword : true,
+		},
+		where : { 
+			id : id
+		}
+	})
+
+	const password = DecryptPassword(ePassword.iv, ePassword.epassword);
+
+	return { password : password };
+
+	prisma.$disconnect();
+}
+
 
 async function AddPassword( userData : any , userId : number ) { 
 
@@ -123,6 +147,6 @@ async function AddPassword( userData : any , userId : number ) {
 }
 
 
-const passwServices = { AddPassword, GetPasswords };
+const passwServices = { AddPassword, GetPasswords , SendPassword };
 
 export default passwServices;
