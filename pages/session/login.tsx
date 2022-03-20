@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { GetServerSideProps } from "next"
 import Router from "next/router"
+import Link from "next/link"
+import { GetServerSideProps } from "next"
 
 export default function Login(){
 
@@ -25,7 +26,7 @@ export default function Login(){
 
 		if ( response.error ) { 
 
-			console.log(response.error)
+			alert(response.error);
 
 		} else {
 
@@ -35,13 +36,18 @@ export default function Login(){
 
 	} 
 
+
 	return(
 		<>
+			<h1>Login</h1>
 			<form onSubmit={login}>
 				<input type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
 				<input type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
 				<button>Login</button>
 			</form>
+			<Link href="/session/register">
+				<a>sign up</a>
+			</Link>
 		</>
 	)
 }

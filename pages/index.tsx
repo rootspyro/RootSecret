@@ -11,8 +11,8 @@ export default function Index(){
 	}
 	return(
 		<div>
-			<h1>Hola Mundo</h1>
-			<button onClick={()=>getUsers()}>Get Users</button>
+			<h1>RootSecret</h1>
+			<h3>Password Manager</h3>
 		</div>
 	)
 }
