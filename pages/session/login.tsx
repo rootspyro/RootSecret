@@ -41,8 +41,8 @@ export default function Login(){
 		<>
 			<h1>Login</h1>
 			<form onSubmit={login}>
-				<input type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
-				<input type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+				<input className="text-gray-700" type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
+				<input className="text-gray-700" type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
 				<button>Login</button>
 			</form>
 			<Link href="/session/register">

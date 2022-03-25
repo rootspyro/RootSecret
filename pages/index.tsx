@@ -3,6 +3,7 @@ import {GetServerSideProps} from "next";
 import jwt from "jsonwebtoken";
 import { getCookie } from "cookies-next";
 import Router from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 // PASSWORD BOX
@@ -12,8 +13,7 @@ export default function Index(){
 
 	const [ passwords, setPasswords ] = useState([]);
 	const [ deleted  , setDeleted  ] = useState(false);
-
-	const user = jwt.decode(getCookie("authorization"));
+	const [ user,  setUser    ] = useState<any>('');
 
 	async function getPasswords(){
 		// passwords
@@ -42,64 +42,19 @@ export default function Index(){
 
 	}
 
-	useEffect	(() => {
-		getPasswords();
-	},[ deleted ]);
+	useEffect(() => {
+		setUser(jwt.decode(getCookie("authorization")));
+		console.log(user);
+	}, []);
 
 	return(
-		<div>
-			<h1>RootSecret</h1>
-			<h3>Password Manager</h3>
-			<br/>
-			<div className="password-list">
-				{
-					
-					passwords.length > 0 
-						? passwords.map( password => {
-
-							async function decrypt(id : number) { 
-								//decyprt password
-								const decrypted = await fetch("/api/password/"+password.id, {
-									method: "GET",
-								});
-
-								const decryptedPassword = await decrypted.json();
-								alert(decryptedPassword.password);
-							}
-
-							async function deletePassword(id : number) { 
-								//delete password
-								const deleted = await fetch("/api/password/"+password.id, {
-									method : "DELETE"
-								})
-
-								const deletedPassword = await deleted.json();
-								
-								if ( deletedPassword.success ) { 
-									setDeleted(!deleted);
-									console.log("Password deleted");
-								}
-
-							}
-							return (
-								<>
-									<div>
-										<PasswordBox key={password.id} { ... password } />
-										<button onClick={()=> decrypt(password.id)}>Decrypt Password</button>
-										<button onClick={()=> deletePassword(password.id)}>Delete Password</button>
-									</div>
-								</>
-							)
-						})
-						: "No hay passwords"
-				}
-			</div>
-			<br />
-			<button onClick={logout}>Logout</button>
-		</div>
+		<>
+			<h1 className="text-theme mt-16 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>
+			<h3 className="text-lg text-center mt-3"> Welcome <span className="text-theme">{user.username}</span>...</h3>
+		</>
 	)
-}
 
+}
 export const getServerSideProps : GetServerSideProps = async (context) => {
 	
 	const cookies = context.req.cookies;

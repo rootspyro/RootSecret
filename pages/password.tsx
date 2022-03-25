@@ -67,7 +67,7 @@ export default function Password(){
 	return(
 		<>
 			<h1>Add Password</h1>
-			<form onSubmit={NewPassword}>
+			<form onSubmit={NewPassword} className="text-gray-800">
 				<input required type="text" placeholder="App name" value={appName} onChange={ e => setAppName(e.target.value) }/> <br />
 				<input type="text" placeholder="Username" value={username} onChange={ e => setUsername(e.target.value) }/> <br />
 				<input type="text" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
