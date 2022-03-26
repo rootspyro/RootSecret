@@ -37,11 +37,11 @@ export default function PasswordBox( password : any ){
 
 	return(
 		<>
-			<div className="password-box bg-box mb-5 rounded-lg p-4 shadow-lg w-full sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl">
+			<div className=" x-10 password-box bg-box mb-5 rounded-lg p-4 shadow-lg w-full sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl">
 				<div className="pbox-head text-theme  grid grid-cols-2">
-					<h2 className="font-bold">{password.appname}</h2>
+					<h2 className="font-bold lg:text-xl">{password.appname}</h2>
 					<div className="flex justify-end">
-						<button className="" onClick={OpenPasswd}><FontAwesomeIcon icon={["fas" , lockIcon ]}/></button>
+						<button className="lg:text-xl" onClick={OpenPasswd}><FontAwesomeIcon icon={["fas" , lockIcon ]}/></button>
 					</div>
 				</div>
 				<div id={"pbox-body-" + password.id } className="hidden mt-3">

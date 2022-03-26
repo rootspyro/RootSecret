@@ -29,7 +29,8 @@
     "jsonwebtoken": "^8.5.1",
     "next": "^12.1.0",
     "react": "^17.0.2",
-    "react-components": "^0.5.1"
+    "react-components": "^0.5.1",
+    "react-tsparticles": "^1.42.4"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
