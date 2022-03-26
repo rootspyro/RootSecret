@@ -7,6 +7,7 @@ import Router from "next/router";
 
 // PASSWORD BOX
 import PasswordBox from "../components/password-box";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function Index(){
 
@@ -54,7 +55,10 @@ export default function Index(){
 			<h1 className="text-theme mt-16 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>
 			<h3 className="text-lg text-center mt-3"> Welcome <span className="text-theme text-semibold">{user.username}</span>...</h3>
 
-			<div className="passwords-container p-5 mt-8">
+			<div className="passwords-container p-5 lg:p-10 mt-8 flex flex-wrap justify-center">
+
+
+
 				{ passwords.map( p  => {
 
 					return(
@@ -62,6 +66,13 @@ export default function Index(){
 					)
 
 				})}
+
+				<div className="flex justify-center mt-10 w-full">
+					<button className="shadow-lg" onClick={()=>Router.push("/password")}>
+						<FontAwesomeIcon icon="plus-circle" className="text-theme text-5xl" />
+					</button>
+				</div>
+
 			</div>
 		</>
 	)
