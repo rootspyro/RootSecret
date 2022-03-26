@@ -41,13 +41,13 @@ function EncryptPassword( password : string ) {
 }
 
 
-async function GetPasswords( id : number ) { 
+async function GetPasswords( id : any ) { 
 
 	prisma.$connect()
 
 	const passwordList = await prisma.user_passwords.findMany({
 		where : {
-			user_id : id
+			user_id : parseInt(id)
 		}
 	})
 
@@ -63,7 +63,7 @@ async function GetPasswords( id : number ) {
 }
 
 
-async function SendPassword( id : number ) { 
+async function SendPassword( id : any ) { 
 
 	prisma.$connect();
 
@@ -73,7 +73,7 @@ async function SendPassword( id : number ) {
 			epassword : true,
 		},
 		where : { 
-			id : id
+			id : parseInt(id)
 		}
 	})
 
@@ -85,7 +85,7 @@ async function SendPassword( id : number ) {
 }
 
 
-async function AddPassword( userData : any , userId : number ) { 
+async function AddPassword( userData : any , userId :  any) { 
 
 	prisma.$connect()
 
@@ -97,10 +97,9 @@ async function AddPassword( userData : any , userId : number ) {
 			password : true
 		},
 		where : { 
-			id : userId
+			id : parseInt(userId) 
 		}
 	})
-
 
 
 	// VALIDATE PASSWORD

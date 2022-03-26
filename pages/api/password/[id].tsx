@@ -8,7 +8,7 @@ export default async function passwordsHandler( req : NextApiRequest ,res : Next
 	switch(req.method) { 
 		// GET THE LIST OF PASSWORDS
 		case 'GET' : 
-			const epassword = await passwServices.SendPassword(parseInt(id[0]));
+			const epassword = await passwServices.SendPassword(id);
 			res.status(200).json(epassword);
 			break;
 
@@ -18,8 +18,7 @@ export default async function passwordsHandler( req : NextApiRequest ,res : Next
 
 			const userData = await JSON.parse(req.body);
 
-			const newPassword = await passwServices.AddPassword(userData, parseInt(id[0]));
-			console.log(newPassword);
+			const newPassword = await passwServices.AddPassword(userData, id);
 
 			res.json(  newPassword );
 			break;

@@ -3,7 +3,6 @@ import {GetServerSideProps} from "next";
 import jwt from "jsonwebtoken";
 import { getCookie } from "cookies-next";
 import Router from "next/router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 // PASSWORD BOX
@@ -15,9 +14,9 @@ export default function Index(){
 	const [ deleted  , setDeleted  ] = useState(false);
 	const [ user,  setUser    ] = useState<any>('');
 
-	async function getPasswords(){
+	async function getPasswords(id : number){
 		// passwords
-		const passwords = await fetch("/api/passwords/"+ user.id , { 
+		const passwords = await fetch("/api/passwords/"+ id, { 
 			method: "GET",
 		});
 
@@ -43,14 +42,27 @@ export default function Index(){
 	}
 
 	useEffect(() => {
-		setUser(jwt.decode(getCookie("authorization")));
-		console.log(user);
-	}, []);
+		if ( user.id ) { 
+			getPasswords(user.id);
+		} else {
+			setUser(jwt.decode(getCookie("authorization")));
+		}
+	}, [user]);
 
 	return(
 		<>
 			<h1 className="text-theme mt-16 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>
-			<h3 className="text-lg text-center mt-3"> Welcome <span className="text-theme">{user.username}</span>...</h3>
+			<h3 className="text-lg text-center mt-3"> Welcome <span className="text-theme text-semibold">{user.username}</span>...</h3>
+
+			<div className="passwords-container p-5 mt-8">
+				{ passwords.map( p  => {
+
+					return(
+						<PasswordBox { ...  p } key={p.id} />
+					)
+
+				})}
+			</div>
 		</>
 	)
 
