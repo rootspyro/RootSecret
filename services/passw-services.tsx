@@ -117,9 +117,11 @@ async function AddPassword( userData : any , userId :  any) {
 			email : userData.email,
 			iv : pEncrypted.iv,
 			epassword : pEncrypted.encrypted,
-			user_id : userId
+			user_id : parseInt(userId)
 
 		}
+		
+		console.log(pData)
 
 		const newPassword = await prisma.user_passwords.create({
 			data : pData
@@ -146,13 +148,13 @@ async function AddPassword( userData : any , userId :  any) {
 }
 
 
-async function DeletePassword( id : number ) { 
+async function DeletePassword( id : any ) { 
 
 	prisma.$connect();
 
 	const response = await prisma.user_passwords.delete({
 		where : {
-			id : id
+			id : parseInt(id) 
 		}
 	})
 

@@ -12,8 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 export default function Index(){
 
 	const [ passwords, setPasswords ] = useState([]);
-	const [ deleted  , setDeleted  ] = useState(false);
-	const [ user,  setUser    ] = useState<any>('');
+	const [ user, setUser ] = useState<any>('');
 
 	async function getPasswords(id : number){
 		// passwords

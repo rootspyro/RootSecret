@@ -5,9 +5,9 @@ export default async function ListPasswords( req : NextApiRequest, res : NextApi
 
 	if ( req.method == "GET" ) { 
 
-		const { id } = req.query;
+		const  { id }  = req.query;
 
-		const passwords = await passwServices.GetPasswords(parseInt(id[0])); 
+		const passwords = await passwServices.GetPasswords(id); 
 		res.json(passwords);
 
 	}

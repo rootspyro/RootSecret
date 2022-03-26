@@ -1,10 +1,11 @@
 import { GetServerSideProps } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import jwt from  'jsonwebtoken';
 import { getCookie } from 'cookies-next';
 
+ 
 export default function Password(){ 
-	
+ 	
 
 	const [appName, setAppName] = useState('');
 	const [username, setUsername] = useState('');
@@ -14,9 +15,8 @@ export default function Password(){
 
 	const [ userPassword  , setUserPassword ] = useState('');
 
+	const [ userData  , setUserData ] = useState<any>({});
 
-	const userData = getCookie('authorization');
-	const user = jwt.decode(userData);
 
 	async function NewPassword ( e ) {
 		
@@ -35,7 +35,7 @@ export default function Password(){
 				userPassword
 			}
 
-			const response = await fetch('/api/password/' + user.id , {
+			const response = await fetch('/api/password/' + userData.id , {
 				method : 'POST',
 				body : JSON.stringify(data)
 			});
@@ -63,6 +63,19 @@ export default function Password(){
 		}
 
 	} 
+
+	useEffect(()=>{
+
+		if ( userData.id ) {
+
+			console.log( userData );
+			return;
+		}
+		else {
+			setUserData(jwt.decode(getCookie("authorization")));
+		}
+
+	},[])
 
 	return(
 		<>

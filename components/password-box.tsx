@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
+import Router from "next/router";
+
 export default function PasswordBox( password : any ){ 
+
 
 	const [ isOpen , setIsOpen ] = useState( true );
 	const [ lockIcon , setLockIcon ] = useState<any>( "lock" );
@@ -8,6 +11,20 @@ export default function PasswordBox( password : any ){
 
 	function CopyPassword() { 
 		navigator.clipboard.writeText( dPassword );
+	}
+
+	async function DeletePassword() { 
+
+		const response = await fetch( `/api/password/${password.id}`, {
+			method: "DELETE",
+		});
+
+		const data = await response.json();
+
+		if( data.success ) {
+			Router.push( "/" );
+		}
+		
 	}
 
 	async function OpenPasswd() {
@@ -48,7 +65,10 @@ export default function PasswordBox( password : any ){
 					<p className="text-white"><span className="text-theme font-semibold">Username: </span>{password.username == '' ? "User not provided" : password.username}</p>
 					<p className="text-white"><span className="text-theme font-semibold">Email: </span>{password.email == '' ? "Email not provided" : password.email}</p>
 
-					<button onClick={CopyPassword} className="mt-5 bg-theme text-box font-semibold px-3 py-2 rounded-md">Copy Password <FontAwesomeIcon className="text-lg" icon={["far", "copy"]} /></button>
+					<button onClick={CopyPassword} className="mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md">Copy Password <FontAwesomeIcon className="text-lg" icon={["far", "copy"]} /></button>
+					<button className="mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md ml-3"><FontAwesomeIcon className="text-lg" icon={["far", "edit"]} /></button>
+					<button onClick={DeletePassword} className="mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md ml-3"><FontAwesomeIcon className="text-lg" icon={["far", "trash-alt"]} /></button>
+
 				</div>
 			</div>
 		</>

@@ -18,6 +18,7 @@ export default async function passwordsHandler( req : NextApiRequest ,res : Next
 
 			const userData = await JSON.parse(req.body);
 
+
 			const newPassword = await passwServices.AddPassword(userData, id);
 
 			res.json(  newPassword );
@@ -31,7 +32,7 @@ export default async function passwordsHandler( req : NextApiRequest ,res : Next
 
 		// DELETE A PASSWORD
 		case 'DELETE' :
-			const deletedPassword = await passwServices.DeletePassword(parseInt(id[0]));
+			const deletedPassword = await passwServices.DeletePassword(id);
 			res.json(deletedPassword);
 			break;
 
