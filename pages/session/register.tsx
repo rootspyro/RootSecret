@@ -45,7 +45,7 @@ export default function Register(){
 	return(
 		<>
 			<h1>New User</h1>
-			<form onSubmit={signUp}>
+			<form onSubmit={signUp} className="text-gray-700">
 				<input required type="text" placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)} /><br/>
 				<input required type="email" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/><br/>
 				<input required type="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
@@ -60,7 +60,7 @@ export const getServerSideProps : GetServerSideProps = async (context) => {
 	
 	const cookies = context.req.cookies;
 
-	if ( cookies.authorization ) { 
+	if ( cookies.token ) { 
 		return { 
 			redirect : {
 				permanent : false,

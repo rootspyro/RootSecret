@@ -45,7 +45,7 @@ export default function Index(){
 		if ( user.id ) { 
 			getPasswords(user.id);
 		} else {
-			setUser(jwt.decode(getCookie("authorization")));
+			setUser(jwt.decode(getCookie("token")));
 		}
 	}, [user]);
 
@@ -81,7 +81,7 @@ export const getServerSideProps : GetServerSideProps = async (context) => {
 	
 	const cookies = context.req.cookies;
 
-	if ( !cookies.authorization ) { 
+	if ( !cookies.token ) { 
 		return { 
 			redirect : {
 				permanent : false,

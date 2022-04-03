@@ -11,6 +11,7 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 		const user = await sessionServices.Login(data);
 
 		if ( user != null ) { 
+			console.log("hola")
 			const token = jwt.sign({ 
 
 				id : user.id,
@@ -19,10 +20,12 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 
 			}, process.env.JWT_SECRET);
 
+			console.log(token)
+
 			let exDate = new Date();
 			exDate.setDate(exDate.getDate() + 1);
 
-			setCookies("authorization", token, { req, res, expires: exDate} );
+			setCookies("token", token, { req, res, expires: exDate} );
 			res.json({success : "user login"})
 
 		} 

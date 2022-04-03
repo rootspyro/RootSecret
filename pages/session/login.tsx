@@ -40,9 +40,9 @@ export default function Login(){
 	return(
 		<>
 			<h1>Login</h1>
-			<form onSubmit={login}>
-				<input className="text-gray-700" type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
-				<input className="text-gray-700" type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+			<form onSubmit={login} className="text-gray-700">
+				<input  type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
+				<input  type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
 				<button>Login</button>
 			</form>
 			<Link href="/session/register">
@@ -56,7 +56,7 @@ export const getServerSideProps : GetServerSideProps = async (context) => {
 	
 	const cookies = context.req.cookies;
 
-	if ( cookies.authorization ) { 
+	if ( cookies.token ) { 
 		return { 
 			redirect : {
 				permanent : false,
