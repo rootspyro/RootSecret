@@ -72,7 +72,7 @@ export default function Password(){
 			return;
 		}
 		else {
-			setUserData(jwt.decode(getCookie("authorization")));
+			setUserData(jwt.decode(getCookie("token")));
 		}
 
 	},[])
@@ -98,7 +98,7 @@ export const getServerSideProps : GetServerSideProps = async (context) => {
 	
 	const cookies = context.req.cookies;
 
-	if ( !cookies.authorization ) { 
+	if ( !cookies.token ) { 
 		return { 
 			redirect : {
 				permanent : false,
