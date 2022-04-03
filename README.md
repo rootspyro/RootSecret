@@ -38,11 +38,12 @@ You will need to create a PostgreSQL database where the user data and passwords 
 
 * ### Quick Start Setup
 
-You will have to configure the user, password and database for the connection and storage of the project.
+  You will have to configure the user, password and database for the connection and storage of the project.
 
-[Postgresql Setup Guide.](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04-es#paso-1-instalar-postgresql)
+  [Postgresql Setup Guide.](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04-es#paso-1-instalar-postgresql)
 
-**IMPORTANT** : *The creation of tables will be done using Prisma.* 
+  **IMPORTANT** : *The creation of tables will be done using Prisma.* 
+  
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
