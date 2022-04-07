@@ -11,7 +11,6 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 		const user = await sessionServices.Login(data);
 
 		if ( user != null ) { 
-			console.log("hola")
 			const token = jwt.sign({ 
 
 				id : user.id,
@@ -19,8 +18,6 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 				username : user.username,
 
 			}, process.env.JWT_SECRET);
-
-			console.log(token)
 
 			let exDate = new Date();
 			exDate.setDate(exDate.getDate() + 1);

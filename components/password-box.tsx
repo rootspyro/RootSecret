@@ -22,7 +22,7 @@ export default function PasswordBox( password : any ){
 		const data = await response.json();
 
 		if( data.success ) {
-			Router.push( "/" );
+			location.reload();
 		}
 		
 	}

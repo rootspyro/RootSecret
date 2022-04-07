@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import jwt from  'jsonwebtoken';
 import { getCookie } from 'cookies-next';
+import Router from 'next/router';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -49,13 +50,7 @@ export default function NPassword(){
 			}
 
 			if ( json.success ) { 
-				alert( json.message );
-				setAppName('');
-				setUsername('');
-				setEmail('');
-				setPassword('');
-				setConfirmPassword('');
-				setUserPassword('');
+				Router.push('/')
 			}
 
 			if ( json.success === false ) { 
@@ -89,7 +84,7 @@ export default function NPassword(){
 					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" type="text" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
 					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="New password" value={password} onChange={ e => setPassword(e.target.value) }/> <br />
 					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="Confirm password" value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value) }/> <br /> <br />
-					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="User password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
+					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="Main password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
 					<div className="flex justify-center">
 						<button className="text-bg bg-theme font-bold py-2 px-4 rounded-md hover:bg-bg hover:text-theme">Add Password <FontAwesomeIcon icon="key" /></button>
 					</div>

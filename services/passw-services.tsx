@@ -121,8 +121,6 @@ async function AddPassword( userData : any , userId :  any) {
 
 		}
 		
-		console.log(pData)
-
 		const newPassword = await prisma.user_passwords.create({
 			data : pData
 		})
