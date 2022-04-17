@@ -76,17 +76,17 @@ export default function NPassword(){
 
 	return(
 		<div className="">
-			<div className="flex justify-center flex-wrap">
-				<h1 className="mt-20 font-bold text-3xl text-theme w-full text-center">New_Password</h1>
+			<div className="flex justify-center flex-wrap mb-10">
+				<h1 className="mt-20 font-bold text-3xl text-theme w-full text-center">New<span className="font-normal">_Password</span></h1>
 				<form onSubmit={NewPassword} className=" w-4/5 lg:w-1/3 mt-10 text-white bg-box p-7 rounded-lg shadow-lg">
 					<input required className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" type="text" placeholder="App name" value={appName} onChange={ e => setAppName(e.target.value) }/> <br />
 					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" type="text" placeholder="Username" value={username} onChange={ e => setUsername(e.target.value) }/> <br />
 					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" type="text" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
 					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="New password" value={password} onChange={ e => setPassword(e.target.value) }/> <br />
 					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="Confirm password" value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value) }/> <br /> <br />
-					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="Main password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
+					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" required type="password" placeholder="RootSecret password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
 					<div className="flex justify-center">
-						<button className="text-bg bg-theme font-bold py-2 px-4 rounded-md hover:bg-bg hover:text-theme">Add Password <FontAwesomeIcon icon="key" /></button>
+						<button className=" w-full text-bg bg-theme font-bold py-2 px-4 rounded-md hover:bg-bg hover:text-theme">Add Password <FontAwesomeIcon icon="key" /></button>
 					</div>
 				</form>
 			</div>

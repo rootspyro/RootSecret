@@ -67,7 +67,7 @@ export default function Index(){
 				})}
 
 				<div className="flex justify-center mt-10 w-full">
-					<button className="shadow-lg" onClick={()=>Router.push("/password/new")}>
+					<button onClick={()=>Router.push("/password/new")}>
 						<FontAwesomeIcon icon="plus-circle" className="text-theme text-5xl" />
 					</button>
 				</div>
