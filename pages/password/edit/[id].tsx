@@ -14,6 +14,8 @@ export default  function EditPassword(){
 	const [username, setUsername] = useState('');
 	const [ email, setEmail ] = useState('');
 	const [password, setPassword] = useState('');
+
+	const [ userPassword  , setUserPassword ] = useState('');
 	//const [confirmPassword, setConfirmPassword] = useState('');
 
 	const [ userData  , setUserData ] = useState<any>({});
@@ -27,7 +29,8 @@ export default  function EditPassword(){
 			password: password,
 			email: email,
 			username: username,
-			appName: appName
+			appName: appName,
+			userPassword: userPassword
 		};
 
 		const data = await fetch(`/api/password/${id}`, {
@@ -51,6 +54,7 @@ export default  function EditPassword(){
 	useEffect( ()=> {
 
 		if ( userData.id ) {
+
 			fetch(`/api/password/${id}`)
 				.then(res => res.json())
 				.then(data => {
@@ -75,6 +79,7 @@ export default  function EditPassword(){
 				<input type="text" placeholder="Username" value={username} onChange={ e => setUsername(e.target.value) }/> <br />
 				<input type="text" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
 				<input required type="password" placeholder="New password" value={password} onChange={ e => setPassword(e.target.value) }/> <br />
+				<input className="mt-5" required type="password" placeholder="RootSecret password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
 				<div className="flex justify-center">
 					<button>Edit Password Data <FontAwesomeIcon icon="key" /></button>
 				</div>

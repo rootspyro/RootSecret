@@ -149,33 +149,55 @@ async function UpdatePassword( body : any ) {
 
 	// LIST OF THINGS TO ADD 
 
-
 	const pEncrypted = EncryptPassword(body.password);
 
 	prisma.$connect();
 
-	const response = await prisma.user_passwords.update({
-		where : {
-			id : parseInt(body.id) 
+	const user_id = await prisma.user_passwords.findFirst({
+		select : {
+			user_id : true
 		},
-		data : {
-			appname : body.appName,
-			username : body.username,
-			email : body.email,
-			iv : pEncrypted.iv,
-			epassword : pEncrypted.encrypted,
+		where : {
+			id : parseInt(body.id)
 		}
 	})
 
-	if ( response != null ) { 
-		prisma.$disconnect();
-		return { success : true , message : "Password updated successfully" }
+	const pHash = await prisma.app_users.findFirst({
+		select : {
+			password : true
+		},
+		where : {
+			id : user_id.user_id
+		}
+	})
+
+	if ( sessionServices.validatePassword( body.userPassword, pHash.password) ) { 
+
+		const response = await prisma.user_passwords.update({
+			where : {
+				id : parseInt(body.id) 
+			},
+			data : {
+				appname : body.appName,
+				username : body.username,
+				email : body.email,
+				iv : pEncrypted.iv,
+				epassword : pEncrypted.encrypted,
+			}
+		})
+
+		if ( response != null ) { 
+			prisma.$disconnect();
+			return { success : true , message : "Password updated successfully" }
+		} else { 
+			prisma.$disconnect();
+			return { success : false , message : "Password not updated" }
+		}
+
 	} else { 
 		prisma.$disconnect();
-		return { success : false , message : "Password not updated" }
+		return { ivError :  " Incorrect User Password " }
 	}
-
-	prisma.$disconnect();
 
 }
 
