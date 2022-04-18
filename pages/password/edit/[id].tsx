@@ -5,10 +5,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { getCookie } from 'cookies-next';
 import jwt from  'jsonwebtoken';
 
+import { InfoAlert } from '../../../components/alerts/info-alert'; 
+
 export default  function EditPassword(){
 
 	const router = useRouter();
 	const { id } = router.query;
+
+	const [ alertData, setAlertData ] = useState<any>({});
 
 	const [appName, setAppName] = useState('');
 	const [username, setUsername] = useState('');
@@ -19,6 +23,22 @@ export default  function EditPassword(){
 	//const [confirmPassword, setConfirmPassword] = useState('');
 
 	const [ userData  , setUserData ] = useState<any>({});
+
+
+	function displayAlert( data : any ){
+
+		setAlertData(data);
+
+		const alert = document.getElementById("alert-container");
+
+			alert.classList.remove("hidden");
+			alert.classList.add("block");
+			setTimeout(() => {
+				alert.classList.remove("block");
+				alert.classList.add("hidden");
+			}, 3000);
+
+	}
 
 	async function updateData(e) { 
 
@@ -45,8 +65,14 @@ export default  function EditPassword(){
 
 		if (response.success) {
 			router.push('/');
-		} else {
-			alert('Something went wrong');
+		} 
+		else if ( response.ivError ) { 
+			displayAlert({ type: 'error', message: response.ivError });
+			return
+		} 
+		else if ( !response.success ) { 
+			displayAlert({ type: 'error', message: response.message });
+			return
 		}
 	}
 
@@ -72,6 +98,10 @@ export default  function EditPassword(){
 	}, [userData]);
 
 	return (
+		<>
+		<div className="hidden transition-all duration-700" id="alert-container">
+			<InfoAlert { ...alertData } />
+		</div>
 		<div className="flex-wrap flex justify-center">
 			<h1 className="mt-20 font-bold text-3xl text-theme w-full text-center">Edit<span className="font-normal">_Password</span></h1>
 			<form onSubmit={e=>updateData(e)}>
@@ -85,6 +115,7 @@ export default  function EditPassword(){
 				</div>
 			</form>
 		</div>
+		</>
 	)
 }
 

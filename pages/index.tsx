@@ -9,11 +9,14 @@ import Router from "next/router";
 import PasswordBox from "../components/password-box";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+//ALERT
+import { InfoAlert } from "../components/alerts/info-alert";
+
 export default function Index(){
 
 	const [ passwords, setPasswords ] = useState([]);
 	const [ user, setUser ] = useState<any>('');
-
+	
 	async function getPasswords(id : number){
 		// passwords
 		const passwords = await fetch("/api/passwords/"+ id, { 
@@ -35,6 +38,7 @@ export default function Index(){
 
 		if ( data.success ) { 
 
+			console.log("logout");
 			Router.push("/session/login");
 
 		}
@@ -48,6 +52,8 @@ export default function Index(){
 			setUser(jwt.decode(getCookie("token")));
 		}
 	}, [user]);
+
+	const alertMessage = { message : "You are logged out", type : "Info" };
 
 	return(
 		<>
@@ -71,6 +77,8 @@ export default function Index(){
 						<FontAwesomeIcon icon="plus-circle" className="text-theme text-5xl" />
 					</button>
 				</div>
+
+				<button onClick={logout}>Logout</button>
 
 			</div>
 		</>

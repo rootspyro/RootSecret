@@ -9,6 +9,10 @@ export default function PasswordBox( password : any ){
 	const [ lockIcon , setLockIcon ] = useState<any>( "lock" );
 	const [ passData , setPassData ] = useState<any>( {} );
 
+	function ShowAlert( message : string ){
+		const data = { message, type : "info" };
+	}
+
 	function CopyPassword() { 
 		navigator.clipboard.writeText( passData.dPassword );
 	}

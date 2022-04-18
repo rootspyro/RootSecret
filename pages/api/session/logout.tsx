@@ -4,7 +4,7 @@ import { removeCookies } from "cookies-next";
 export default async function Logout ( req : NextApiRequest, res : NextApiResponse ) {
 	if ( req.method == "POST" ) { 
 
-		removeCookies( "authorization", { req, res } );
+		removeCookies( "token", { req, res } );
 
 		res.json({success : true})
 	}
