@@ -2,9 +2,12 @@ import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import jwt from  'jsonwebtoken';
 import { getCookie } from 'cookies-next';
+import Router from 'next/router';
+
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
  
-export default function Password(){ 
+export default function NPassword(){ 
  	
 
 	const [appName, setAppName] = useState('');
@@ -37,6 +40,9 @@ export default function Password(){
 
 			const response = await fetch('/api/password/' + userData.id , {
 				method : 'POST',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
 				body : JSON.stringify(data)
 			});
 
@@ -47,13 +53,7 @@ export default function Password(){
 			}
 
 			if ( json.success ) { 
-				alert( json.message );
-				setAppName('');
-				setUsername('');
-				setEmail('');
-				setPassword('');
-				setConfirmPassword('');
-				setUserPassword('');
+				Router.push('/')
 			}
 
 			if ( json.success === false ) { 
@@ -67,8 +67,6 @@ export default function Password(){
 	useEffect(()=>{
 
 		if ( userData.id ) {
-
-			console.log( userData );
 			return;
 		}
 		else {
@@ -78,18 +76,22 @@ export default function Password(){
 	},[])
 
 	return(
-		<>
-			<h1>Add Password</h1>
-			<form onSubmit={NewPassword} className="text-gray-800">
-				<input required type="text" placeholder="App name" value={appName} onChange={ e => setAppName(e.target.value) }/> <br />
-				<input type="text" placeholder="Username" value={username} onChange={ e => setUsername(e.target.value) }/> <br />
-				<input type="text" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
-				<input required type="password" placeholder="New password" value={password} onChange={ e => setPassword(e.target.value) }/> <br />
-				<input required type="password" placeholder="Confirm password" value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value) }/> <br /> <br />
-				<input required type="password" placeholder="User password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
-				<button>Add Password</button>
-			</form>
-		</>
+		<div className="">
+			<div className="flex justify-center flex-wrap mb-10">
+				<h1 className="mt-20 font-bold text-3xl text-theme w-full text-center">New<span className="font-normal">_Password</span></h1>
+				<form onSubmit={NewPassword} >
+					<input required type="text" placeholder="App name" value={appName} onChange={ e => setAppName(e.target.value) }/> <br />
+					<input type="text" placeholder="Username" value={username} onChange={ e => setUsername(e.target.value) }/> <br />
+					<input type="text" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
+					<input required type="password" placeholder="New password" value={password} onChange={ e => setPassword(e.target.value) }/> <br />
+					<input required type="password" placeholder="Confirm password" value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value) }/> <br /> <br />
+					<input required type="password" placeholder="RootSecret password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
+					<div className="flex justify-center">
+						<button>Add Password <FontAwesomeIcon icon="key" /></button>
+					</div>
+				</form>
+			</div>
+		</div>
 	)
 }
 

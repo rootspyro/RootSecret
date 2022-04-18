@@ -38,17 +38,23 @@ export default function Login(){
 
 
 	return(
-		<>
-			<h1>Login</h1>
-			<form onSubmit={login} className="text-gray-700">
-				<input  type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
-				<input  type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
-				<button>Login</button>
-			</form>
+		<div>
+			<div className="flex justify-center flex-wrap">
+				<h1 className="text-theme mt-16 text-3xl font-semibold text-center w-full">Root<span className="font-normal">_Secret</span></h1>
+				<form onSubmit={login}>
+					<input type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
+					<input type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+					<div className="flex justify-center"> 
+						<button className="">Login</button>
+					</div>
+				</form>
+			</div>
 			<Link href="/session/register">
-				<a>sign up</a>
+				<div className="flex justify-center mt-5">
+					<a>sign up</a>
+				</div>
 			</Link>
-		</>
+		</div>
 	)
 }
 

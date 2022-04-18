@@ -7,11 +7,12 @@ export function Layout({children}) {
 	const [ numParticles ,  setNumParticles ] = useState(0);
 
 	useEffect(() => {
+
 		const windowsWidth = window.innerWidth;
 		if ( windowsWidth < 500 ) { 
 			setNumParticles(25);
 		} else {
-			setNumParticles(60);
+			setNumParticles(90);
 		}
 
 	})
@@ -26,7 +27,7 @@ export function Layout({children}) {
           fpsLimit: 60,
           particles: {
 						opacity	: {
-							value: 0.5,
+							value: 0.2,
 						},
             color: {
               value: themeColor,

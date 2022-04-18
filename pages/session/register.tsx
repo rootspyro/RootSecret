@@ -43,16 +43,18 @@ export default function Register(){
 	}
 
 	return(
-		<>
-			<h1>New User</h1>
-			<form onSubmit={signUp} className="text-gray-700">
-				<input required type="text" placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)} /><br/>
-				<input required type="email" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/><br/>
-				<input required type="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-				<input required type="password" placeholder="confirm password" value={rePassword} onChange={(e)=>setRePassword(e.target.value)}/><br/>
-				<button>Create User</button>
+		<div className="flex-wrap flex justify-center">
+			<h1 className="text-theme mt-16 text-3xl font-semibold text-center w-full">New<span className="font-normal">_User</span></h1>
+			<form onSubmit={signUp} className="w-4/5 lg:w-1/3 mt-10 text-white bg-box p-7 rounded-lg shadow-lg">
+				<input  required type="text" placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)} /><br/>
+				<input  required type="email" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/><br/>
+				<input  required type="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+				<input  required type="password" placeholder="confirm password" value={rePassword} onChange={(e)=>setRePassword(e.target.value)}/><br/>
+				<div className="flex justify-center"> 
+					<button>Create User</button>
+				</div>
 			</form>
-		</>
+		</div>
 	)
 }
 

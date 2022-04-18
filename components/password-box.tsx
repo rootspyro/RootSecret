@@ -7,10 +7,10 @@ export default function PasswordBox( password : any ){
 
 	const [ isOpen , setIsOpen ] = useState( true );
 	const [ lockIcon , setLockIcon ] = useState<any>( "lock" );
-	const [dPassword, setDPassword] = useState("");
+	const [ passData , setPassData ] = useState<any>( {} );
 
 	function CopyPassword() { 
-		navigator.clipboard.writeText( dPassword );
+		navigator.clipboard.writeText( passData.dPassword );
 	}
 
 	async function DeletePassword() { 
@@ -22,7 +22,7 @@ export default function PasswordBox( password : any ){
 		const data = await response.json();
 
 		if( data.success ) {
-			Router.push( "/" );
+			location.reload();
 		}
 		
 	}
@@ -37,11 +37,11 @@ export default function PasswordBox( password : any ){
 			setLockIcon("lock-open");
 			pbox.style.display = "block";
 		
-			if ( dPassword === '' ) { 
+			if ( !passData.username ) { 
 				//DECRYPT
 				const data = await fetch("/api/password/" + password.id);
 				const json = await data.json();
-				setDPassword(json.password);
+				setPassData( json );
 			}
 			
 			
@@ -62,12 +62,12 @@ export default function PasswordBox( password : any ){
 					</div>
 				</div>
 				<div id={"pbox-body-" + password.id } className="hidden mt-3">
-					<p className="text-white"><span className="text-theme font-semibold">Username: </span>{password.username == '' ? "User not provided" : password.username}</p>
-					<p className="text-white"><span className="text-theme font-semibold">Email: </span>{password.email == '' ? "Email not provided" : password.email}</p>
+					<p className="text-white"><span className="text-theme font-semibold">Username: </span>{password.username == '' ? "User not provided" : passData.username}</p>
+					<p className="text-white"><span className="text-theme font-semibold">Email: </span>{password.email == '' ? "Email not provided" : passData.email}</p>
 
-					<button onClick={CopyPassword} className="mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md">Copy Password <FontAwesomeIcon className="text-lg" icon={["far", "copy"]} /></button>
-					<button className="mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md ml-3"><FontAwesomeIcon className="text-lg" icon={["far", "edit"]} /></button>
-					<button onClick={DeletePassword} className="mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md ml-3"><FontAwesomeIcon className="text-lg" icon={["far", "trash-alt"]} /></button>
+					<button onClick={CopyPassword} className="hover:bg-bg hover:text-theme mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md">Copy Password <FontAwesomeIcon className="text-lg" icon={["far", "copy"]} /></button>
+					<button onClick={ () => Router.push("/password/edit/"+password.id) }className="hover:bg-bg hover:text-theme mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md ml-3"><FontAwesomeIcon className="text-lg" icon={["far", "edit"]} /></button>
+					<button onClick={DeletePassword} className="hover:bg-bg hover:text-theme mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md ml-3"><FontAwesomeIcon className="text-lg" icon={["far", "trash-alt"]} /></button>
 
 				</div>
 			</div>
