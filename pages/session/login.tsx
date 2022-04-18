@@ -41,11 +41,11 @@ export default function Login(){
 		<div>
 			<div className="flex justify-center flex-wrap">
 				<h1 className="text-theme mt-16 text-3xl font-semibold text-center w-full">Root<span className="font-normal">_Secret</span></h1>
-				<form onSubmit={login} className=" w-4/5 lg:w-1/3 mt-10 text-white bg-box p-7 rounded-lg shadow-lg">
-					<input className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
-					<input  className=" w-full focus:outline-none focus:border-2 focus:border-theme bg-bg p-2 rounded-md shadow-inner mb-5" type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+				<form onSubmit={login}>
+					<input type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
+					<input type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
 					<div className="flex justify-center"> 
-						<button className=" w-full text-bg bg-theme font-bold py-2 px-4 rounded-md hover:bg-bg hover:text-theme">Login</button>
+						<button className="">Login</button>
 					</div>
 				</form>
 			</div>
