@@ -46,6 +46,10 @@ async function GetPasswords( id : any ) {
 	prisma.$connect()
 
 	const passwordList = await prisma.user_passwords.findMany({
+		select: { 
+			id : true,
+			appname : true,
+		},
 		where : {
 			user_id : parseInt(id)
 		}
@@ -67,11 +71,7 @@ async function SendPassword( id : any ) {
 
 	prisma.$connect();
 
-	const ePassword = await prisma.user_passwords.findFirst({
-		select : { 
-			iv : true,
-			epassword : true,
-		},
+	const ePassword : any = await prisma.user_passwords.findFirst({
 		where : { 
 			id : parseInt(id)
 		}
@@ -79,9 +79,9 @@ async function SendPassword( id : any ) {
 
 	const password = DecryptPassword(ePassword.iv, ePassword.epassword);
 
-	return { password : password };
-
+	ePassword.dPassword = password;
 	prisma.$disconnect();
+	return ePassword;
 }
 
 
@@ -145,6 +145,40 @@ async function AddPassword( userData : any , userId :  any) {
 
 }
 
+async function UpdatePassword( body : any ) { 
+
+	// LIST OF THINGS TO ADD 
+
+
+	const pEncrypted = EncryptPassword(body.password);
+
+	prisma.$connect();
+
+	const response = await prisma.user_passwords.update({
+		where : {
+			id : parseInt(body.id) 
+		},
+		data : {
+			appname : body.appName,
+			username : body.username,
+			email : body.email,
+			iv : pEncrypted.iv,
+			epassword : pEncrypted.encrypted,
+		}
+	})
+
+	if ( response != null ) { 
+		prisma.$disconnect();
+		return { success : true , message : "Password updated successfully" }
+	} else { 
+		prisma.$disconnect();
+		return { success : false , message : "Password not updated" }
+	}
+
+	prisma.$disconnect();
+
+}
+
 
 async function DeletePassword( id : any ) { 
 
@@ -162,6 +196,6 @@ async function DeletePassword( id : any ) {
 
 }
 
-const passwServices = { AddPassword, GetPasswords , SendPassword, DeletePassword };
+const passwServices = { AddPassword, GetPasswords , SendPassword, UpdatePassword, DeletePassword };
 
 export default passwServices;

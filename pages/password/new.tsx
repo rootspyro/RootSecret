@@ -40,6 +40,9 @@ export default function NPassword(){
 
 			const response = await fetch('/api/password/' + userData.id , {
 				method : 'POST',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
 				body : JSON.stringify(data)
 			});
 
@@ -64,8 +67,6 @@ export default function NPassword(){
 	useEffect(()=>{
 
 		if ( userData.id ) {
-
-			console.log( userData );
 			return;
 		}
 		else {

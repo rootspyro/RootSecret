@@ -6,7 +6,8 @@ export default async function passwordsHandler( req : NextApiRequest ,res : Next
 	const { id } = req.query;
 
 	switch(req.method) { 
-		// GET THE LIST OF PASSWORDS
+
+		// GET PASSWORD DECRYPTED BY ID 
 		case 'GET' : 
 			const epassword = await passwServices.SendPassword(id);
 			res.status(200).json(epassword);
@@ -16,18 +17,18 @@ export default async function passwordsHandler( req : NextApiRequest ,res : Next
 		// CREATE A NEW PASSWORD
 		case 'POST' :
 
-			const userData = await JSON.parse(req.body);
-
-
+			const userData = await req.body;
 			const newPassword = await passwServices.AddPassword(userData, id);
 
-			res.json(  newPassword );
+			res.json( newPassword );
 			break;
 
 			
 		// UPDATE A PASSWORD
 		case 'PUT' :
-			res.json({method: "PUT"});
+			const updatePassword = await req.body;
+			const updatedPassword = await passwServices.UpdatePassword(updatePassword);
+			res.json(updatedPassword);
 			break;
 
 		// DELETE A PASSWORD
