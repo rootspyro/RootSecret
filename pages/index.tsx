@@ -53,8 +53,6 @@ export default function Index(){
 		}
 	}, [user]);
 
-	const alertMessage = { message : "You are logged out", type : "Info" };
-
 	return(
 		<>
 			<h1 className="text-theme mt-16 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>

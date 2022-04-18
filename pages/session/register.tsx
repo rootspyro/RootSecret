@@ -3,6 +3,8 @@ import { useState } from "react";
 import Router from "next/router";
 import { InfoAlert } from "../../components/alerts/info-alert"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 export default function Register(){
 
 	const [username, setUsername] = useState("");
@@ -11,6 +13,54 @@ export default function Register(){
 	const [rePassword, setRePassword] = useState("");
 
 	const [ alertData, setAlertData ] = useState<any>({});
+
+	function validateForm( ) { 
+
+		if( username.length < 3 ){
+			displayAlert({
+				type: "danger",
+				message: "Username must be at least 3 characters long"
+			})
+			return false;
+		}
+
+		if( password.length < 8 ){
+			displayAlert({
+				type: "danger",
+				message: "Password must be at least 8 characters long"
+			});
+			return false;
+		}
+
+		var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+		
+		if ( !strongRegex.test(password) ) {
+			displayAlert({
+				type: "danger",
+				message: "Passwords is not strong enough, follow the instructions."
+			});
+			return false;
+		}
+
+		if( password !== rePassword ){
+			displayAlert({
+				type: "danger",
+				message: "Passwords do not match"
+			});
+			return false;
+		}
+
+		if( !email.includes("@") ){
+			displayAlert({
+				type: "danger",
+				message: "Email is not valid"
+			});
+			return false;
+		}
+
+		return true;
+
+	}
 
 	function displayAlert( data : any ){
 
@@ -31,16 +81,7 @@ export default function Register(){
 
 		e.preventDefault();
 
-		if ( password != rePassword ) {
-		
-			displayAlert({
-				type: "error",
-				message: "Passwords do not match"
-			});
-			return;
-		
-		} else {
-
+		if ( validateForm() ) {
 			const userData = { username, email, password };
 			userData.email = userData.email.toLowerCase();
 
@@ -62,9 +103,8 @@ export default function Register(){
 			if ( response.success ) { 
 				Router.push("/session/login");
 			}
-
+		
 		}
-
 	}
 
 	return(
@@ -74,7 +114,7 @@ export default function Register(){
 				<InfoAlert { ...alertData } />
 			</div>
 
-			<h1 className="text-theme mt-16 text-3xl font-semibold text-center w-full">New<span className="font-normal">_User</span></h1>
+			<h1 className="text-theme mt-16 text-3xl font-semibold text-center w-full"><FontAwesomeIcon className="text-2xl" icon={"user"} /> New<span className="font-normal">_User</span> </h1>
 			<form onSubmit={signUp} className="w-4/5 lg:w-1/3 mt-10 text-white bg-box p-7 rounded-lg shadow-lg">
 				<input  required type="text" placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)} /><br/>
 				<input  required type="email" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/><br/>
@@ -84,6 +124,7 @@ export default function Register(){
 					<button>Create User</button>
 				</div>
 			</form>
+			<h3 className="w-full text-center mt-10">Please choose a stronger password and <span className="text-red-500 font-bold ">do not lose it</span>. <br/> Password must contain: UPPERCASE, lowercase, numb3rs and $pecial ch@racters.</h3>
 		</div>
 	)
 }
