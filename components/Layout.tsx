@@ -1,5 +1,6 @@
 import Particles from "react-tsparticles"
 import { useEffect, useState } from "react";
+import Footer from "./footer";
 export function Layout({children}) { 
 
 	const themeColor = "#23D375";
@@ -53,6 +54,7 @@ export function Layout({children}) {
 					position: relative;
 				}
 			`}</style>
+			<Footer />
 		</>
 	)
 }
