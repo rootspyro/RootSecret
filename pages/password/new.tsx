@@ -104,6 +104,31 @@ export default function NPassword(){
 
 	},[])
 
+	function generatePassword(){
+
+		var chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		var passwordLength = 12;
+		var password = "";
+
+		for (var i = 0; i <= passwordLength; i++) {
+			var randomNumber = Math.floor(Math.random() * chars.length);
+			password += chars.substring(randomNumber, randomNumber +1);
+		}
+
+		//copy password to clipboard
+
+		setPassword(password);
+		setConfirmPassword(password);
+
+		navigator.clipboard.writeText( password );
+
+		displayAlert({
+			type: "success",
+			message: "Password copied to clipboard"
+		});
+
+	}
+
 	return(
 		<div className="">
 
@@ -123,6 +148,9 @@ export default function NPassword(){
 						<button>Add Password <FontAwesomeIcon icon="key" /></button>
 					</div>
 				</form>
+			</div>
+			<div className="text-center">
+				<p><a onClick={generatePassword} className="text-theme hover:font-bold cursor-pointer underline decoration-1 hover:decoration-2">Click here!</a> for autogenerate a password.</p>
 			</div>
 		</div>
 	)

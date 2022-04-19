@@ -9,8 +9,6 @@ import Router from "next/router";
 import PasswordBox from "../components/password-box";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-//ALERT
-import { InfoAlert } from "../components/alerts/info-alert";
 
 export default function Index(){
 
