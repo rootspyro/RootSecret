@@ -6,9 +6,12 @@ import Router from 'next/router';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+import { InfoAlert } from '../../components/alerts/info-alert';
+
  
 export default function NPassword(){ 
  	
+	const [ alertData, setAlertData ] = useState<any>({});
 
 	const [appName, setAppName] = useState('');
 	const [username, setUsername] = useState('');
@@ -21,12 +24,31 @@ export default function NPassword(){
 	const [ userData  , setUserData ] = useState<any>({});
 
 
+	function displayAlert( data : any ){
+
+		setAlertData(data);
+
+		const alert = document.getElementById("alert-container");
+
+			alert.classList.remove("hidden");
+			alert.classList.add("block");
+			setTimeout(() => {
+				alert.classList.remove("block");
+				alert.classList.add("hidden");
+			}, 3000);
+
+	}
+
 	async function NewPassword ( e ) {
 		
 		e.preventDefault();
 
 		if ( password != confirmPassword ) { 
-			alert("confirm that the password is the same");
+			displayAlert({
+				type: "error",
+				message: "Passwords do not match"
+			});
+			return;
 		}
 		else {
 
@@ -49,7 +71,11 @@ export default function NPassword(){
 			const json = await response.json();
 
 			if ( json.ivError ) { 
-				alert(  json.ivError );
+				displayAlert({
+					type: "error",
+					message: json.ivError
+				});
+				return;
 			}
 
 			if ( json.success ) { 
@@ -57,7 +83,10 @@ export default function NPassword(){
 			}
 
 			if ( json.success === false ) { 
-				alert( json.message );
+				displayAlert({
+					type: "error",
+					message: json.message
+				});
 			}
 
 		}
@@ -77,6 +106,10 @@ export default function NPassword(){
 
 	return(
 		<div className="">
+
+			<div className="hidden transition-all duration-700" id="alert-container">
+				<InfoAlert { ...alertData } />
+			</div>
 			<div className="flex justify-center flex-wrap mb-10">
 				<h1 className="mt-20 font-bold text-3xl text-theme w-full text-center">New<span className="font-normal">_Password</span></h1>
 				<form onSubmit={NewPassword} >

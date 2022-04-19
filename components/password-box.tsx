@@ -9,6 +9,10 @@ export default function PasswordBox( password : any ){
 	const [ lockIcon , setLockIcon ] = useState<any>( "lock" );
 	const [ passData , setPassData ] = useState<any>( {} );
 
+	function ShowAlert( message : string ){
+		const data = { message, type : "info" };
+	}
+
 	function CopyPassword() { 
 		navigator.clipboard.writeText( passData.dPassword );
 	}
@@ -62,8 +66,8 @@ export default function PasswordBox( password : any ){
 					</div>
 				</div>
 				<div id={"pbox-body-" + password.id } className="hidden mt-3">
-					<p className="text-white"><span className="text-theme font-semibold">Username: </span>{password.username == '' ? "User not provided" : passData.username}</p>
-					<p className="text-white"><span className="text-theme font-semibold">Email: </span>{password.email == '' ? "Email not provided" : passData.email}</p>
+					<p className="text-white"><span className="text-theme font-semibold">Username: </span>{passData.username == '' ? "User not provided" : passData.username}</p>
+					<p className="text-white"><span className="text-theme font-semibold">Email: </span>{passData.email == '' ? "Email not provided" : passData.email}</p>
 
 					<button onClick={CopyPassword} className="hover:bg-bg hover:text-theme mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md">Copy Password <FontAwesomeIcon className="text-lg" icon={["far", "copy"]} /></button>
 					<button onClick={ () => Router.push("/password/edit/"+password.id) }className="hover:bg-bg hover:text-theme mt-5 text-sm bg-theme text-box font-semibold px-3 py-2 rounded-md ml-3"><FontAwesomeIcon className="text-lg" icon={["far", "edit"]} /></button>

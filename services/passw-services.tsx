@@ -147,8 +147,6 @@ async function AddPassword( userData : any , userId :  any) {
 
 async function UpdatePassword( body : any ) { 
 
-	// LIST OF THINGS TO ADD 
-
 	const pEncrypted = EncryptPassword(body.password);
 
 	prisma.$connect();
