@@ -9,6 +9,12 @@ body {
 	color : white;
 }
 
+/* --- Mobile menu --- */
+
+#mobile-menu a  {
+	@apply w-full  text-lg py-2 px-5 block hover:bg-box hover:text-theme;
+}
+
 /* --- FORMS TAILDWINDCSS STYLES --- */
 
 form { 

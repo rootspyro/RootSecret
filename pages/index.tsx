@@ -28,23 +28,6 @@ export default function Index(){
 
 	}
 
-	async function logout(){
-
-		const response = await fetch("/api/session/logout", {
-			method : "POST"
-		})
-
-		const data = await response.json();
-
-		if ( data.success ) { 
-
-			console.log("logout");
-			Router.push("/session/login");
-
-		}
-
-	}
-
 	useEffect(() => {
 		if ( user.id ) { 
 			getPasswords(user.id);
@@ -75,8 +58,6 @@ export default function Index(){
 						<FontAwesomeIcon icon="plus-circle" className="text-theme text-5xl" />
 					</button>
 				</div>
-
-				<button onClick={logout}>Logout</button>
 
 			</div>
 		</>
