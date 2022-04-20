@@ -124,7 +124,7 @@ export default function Register(){
 					<button>Create User</button>
 				</div>
 			</form>
-			<h3 className="w-full text-center mt-10">Please choose a stronger password and <span className="text-red-500 font-bold ">do not lose it</span>. <br/> Password must contain: UPPERCASE, lowercase, numb3rs and $pecial ch@racters.</h3>
+			<p className=" mb-10 md:text-md w-full text-center mt-10 text-xs px-10">Please choose a stronger password and <span className="text-red-500 font-bold ">do not lose it</span>. <br/><br/> Password must contain: UPPERCASE, lowercase, numb3rs and $pecial ch@racters.</p>
 		</div>
 	)
 }

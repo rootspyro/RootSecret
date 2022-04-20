@@ -149,7 +149,7 @@ export default function NPassword(){
 					</div>
 				</form>
 			</div>
-			<div className="text-center">
+			<div className="text-center mb-20 px-5">
 				<p><a onClick={generatePassword} className="text-theme hover:font-bold cursor-pointer underline decoration-1 hover:decoration-2">Click here!</a> for autogenerate a password.</p>
 			</div>
 		</div>

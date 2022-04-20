@@ -138,7 +138,7 @@ export default  function EditPassword(){
 				</div>
 			</form>
 		</div>
-		<div className="text-center">
+		<div className="text-center mt-10 px-5 mb-20">
 			<p><a onClick={generatePassword} className="text-theme hover:font-bold cursor-pointer underline decoration-1 hover:decoration-2">Click here!</a> for autogenerate a password.</p>
 		</div>
 		</>
