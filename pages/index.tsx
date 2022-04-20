@@ -14,6 +14,8 @@ export default function Index(){
 
 	const [ passwords, setPasswords ] = useState([]);
 	const [ user, setUser ] = useState<any>('');
+
+	const [ deleted , setDeleted ] = useState( false );
 	
 	async function getPasswords(id : number){
 		// passwords
@@ -49,7 +51,7 @@ export default function Index(){
 		} else {
 			setUser(jwt.decode(getCookie("token")));
 		}
-	}, [user]);
+	}, [user, deleted]);
 
 	return(
 		<>
@@ -63,7 +65,7 @@ export default function Index(){
 				{ passwords.map( p  => {
 
 					return(
-						<PasswordBox { ...  p } key={p.id} />
+						<PasswordBox password={ p } key={p.id} deleted={deleted} setDeleted={setDeleted} />
 					)
 
 				})}

@@ -1,6 +1,11 @@
-import Particles from "react-tsparticles"
 import { useEffect, useState } from "react";
+
+// LAYOUT COMPONENTS
+
+import Particles from "react-tsparticles"
+import Navbar from "./navbar"
 import Footer from "./footer";
+
 export function Layout({children}) { 
 
 	const themeColor = "#23D375";
@@ -19,6 +24,7 @@ export function Layout({children}) {
 	})
 	return (
 		<>
+			<Navbar />
 			<div className="layout-box" >
 				{children}
 			</div>

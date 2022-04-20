@@ -4,13 +4,14 @@ import Router from "next/router";
 
 import { InfoAlert } from "./alerts/info-alert";
 
-export default function PasswordBox( password : any ){ 
+export default function PasswordBox( { password,  deleted, setDeleted } ){ 
 
 	const [ alertData, setAlertData ] = useState<any>({});
 
 	const [ isOpen , setIsOpen ] = useState( true );
 	const [ lockIcon , setLockIcon ] = useState<any>( "lock" );
 	const [ passData , setPassData ] = useState<any>( {} );
+
 
 	function displayAlert( data : any ){
 
@@ -46,7 +47,8 @@ export default function PasswordBox( password : any ){
 		const data = await response.json();
 
 		if( data.success ) {
-			location.reload();
+			//location.reload();
+			setDeleted( !deleted );
 		}
 		
 	}
