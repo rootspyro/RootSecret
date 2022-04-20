@@ -14,6 +14,8 @@ export default function Index(){
 
 	const [ passwords, setPasswords ] = useState([]);
 	const [ user, setUser ] = useState<any>('');
+
+	const [ deleted , setDeleted ] = useState( false );
 	
 	async function getPasswords(id : number){
 		// passwords
@@ -26,34 +28,17 @@ export default function Index(){
 
 	}
 
-	async function logout(){
-
-		const response = await fetch("/api/session/logout", {
-			method : "POST"
-		})
-
-		const data = await response.json();
-
-		if ( data.success ) { 
-
-			console.log("logout");
-			Router.push("/session/login");
-
-		}
-
-	}
-
 	useEffect(() => {
 		if ( user.id ) { 
 			getPasswords(user.id);
 		} else {
 			setUser(jwt.decode(getCookie("token")));
 		}
-	}, [user]);
+	}, [user, deleted]);
 
 	return(
 		<>
-			<h1 className="text-theme mt-16 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>
+			<h1 className="text-theme mt-24 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>
 			<h3 className="text-lg text-center mt-3"> Welcome <span className="text-theme text-semibold">{user.username}</span>...</h3>
 
 			<div className="passwords-container p-5 lg:p-10 mt-8 flex flex-wrap justify-center">
@@ -63,7 +48,7 @@ export default function Index(){
 				{ passwords.map( p  => {
 
 					return(
-						<PasswordBox { ...  p } key={p.id} />
+						<PasswordBox password={ p } key={p.id} deleted={deleted} setDeleted={setDeleted} />
 					)
 
 				})}
@@ -73,8 +58,6 @@ export default function Index(){
 						<FontAwesomeIcon icon="plus-circle" className="text-theme text-5xl" />
 					</button>
 				</div>
-
-				<button onClick={logout}>Logout</button>
 
 			</div>
 		</>

@@ -64,7 +64,7 @@ export default function Login(){
 				<InfoAlert { ...alertData } />
 			</div>
 			<div className="flex justify-center flex-wrap">
-				<h1 className="text-theme mt-16 text-3xl font-semibold text-center w-full">Root<span className="font-normal">_Secret</span></h1>
+				<h1 className="text-theme mt-28 text-3xl font-semibold text-center w-full">Root<span className="font-normal">_Secret</span></h1>
 				<form onSubmit={login}>
 					<input type="text" name="user" placeholder="username or email" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
 					<input type="password" name="password" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
