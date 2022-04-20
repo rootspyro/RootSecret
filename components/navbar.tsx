@@ -1,29 +1,29 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import { useState } from "react"
+import { useRouter } from "next/router"
 import Link from "next/link"
 import Router from "next/router"
+
+
+async function logout(){
+
+	const response = await fetch("/api/session/logout", {
+		method : "POST"
+	})
+
+	const data = await response.json();
+
+	if ( data.success ) { 
+
+		Router.push("/session/login");
+
+	}
+
+}
 
 function MobileMenu({isOpen, setIsOpen }) { 
 
 	const projectUrl : string = "https://github.com/rootspyro/RootSecret";
-
-	async function logout(){
-
-		setIsOpen(!isOpen);
-		const response = await fetch("/api/session/logout", {
-			method : "POST"
-		})
-
-		const data = await response.json();
-
-		if ( data.success ) { 
-
-			console.log("logout");
-			Router.push("/session/login");
-
-		}
-
-	}
 
 	return( 
 		<>
@@ -33,7 +33,7 @@ function MobileMenu({isOpen, setIsOpen }) {
 					<li className="w-full"><Link href="/password/new"><a onClick={()=>setIsOpen(!isOpen)}><FontAwesomeIcon icon={"key"} className="text-theme"/> New Password</a></Link></li>
 					<li className="w-full"><Link href="/"><a onClick={()=>setIsOpen(!isOpen)}><FontAwesomeIcon icon={"user"} className="text-theme"/> My Account</a></Link></li>
 					<li className="w-full"><a href={projectUrl} target="_blank" onClick={()=>setIsOpen(!isOpen)}><FontAwesomeIcon icon={["fab","github"]} className="text-theme"/> Project</a></li>
-					<li className="w-full"><a onClick={logout}><FontAwesomeIcon icon={"sign-out"} className="text-theme"/> Logout</a></li>
+					<li className="w-full"><a onClick={()=>{ setIsOpen(!isOpen); logout(); }}><FontAwesomeIcon icon={"sign-out"} className="text-theme"/> Logout</a></li>
 				</ul>
 			</div>
 		</>
@@ -43,12 +43,33 @@ function MobileMenu({isOpen, setIsOpen }) {
 
 export default function Navbar() { 
 
+	const router = useRouter();
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	function toggleMenu() {
 		setIsOpen(!isOpen);
 	}
 
+
+	async function logout(){
+
+		const response = await fetch("/api/session/logout", {
+			method : "POST"
+		})
+
+		const data = await response.json();
+
+		if ( data.success ) { 
+
+			Router.push("/session/login");
+
+		}
+
+	}
+
+	if ( router.pathname === "/session/login" || router.pathname === "/session/register" ) {
+		return null;
+	} 
 
 	return(
 		<div className="w-full fixed top-0">
@@ -59,8 +80,15 @@ export default function Navbar() {
 			<MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
 
 			{ /* -- DESKTOP MENU -- */ }
-			<div className="hidden sm:block w-full ">
-				<h1>My desktop menu</h1>
+			<div id="desktop-menu" className="hidden sm:flex ">
+				<ul className="flex p-5 w-2/4 justify-start ml-5">
+					<li className="mr-5"><Link href="/"><a className="font-bold text-lg hover:text-theme"><FontAwesomeIcon className="text-theme" icon={"home"} /> Home</a></Link></li>
+					<li className="mr-5"><Link href="/password/new"><a className="font-bold text-lg hover:text-theme"><FontAwesomeIcon className="text-theme" icon={"key"} /> New Password</a></Link></li>
+				</ul>
+				<ul className="flex p-5 w-2/4 justify-end">
+					<li className="mr-5"><Link href="#"><a className="font-bold text-lg hover:text-theme"><FontAwesomeIcon className="text-theme" icon={"user"} /> My account</a></Link></li>
+					<li className="mr-5"><a className="font-bold text-lg hover:text-theme cursor-pointer" onClick={logout}><FontAwesomeIcon className="text-theme" icon={"sign-out"} /> Logout</a></li>
+				</ul>
 			</div>
 
 		</div>

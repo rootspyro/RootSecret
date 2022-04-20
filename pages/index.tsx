@@ -38,7 +38,7 @@ export default function Index(){
 
 	return(
 		<>
-			<h1 className="text-theme mt-16 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>
+			<h1 className="text-theme mt-24 text-3xl font-semibold text-center">Root<span className="font-normal">_Secret</span></h1>
 			<h3 className="text-lg text-center mt-3"> Welcome <span className="text-theme text-semibold">{user.username}</span>...</h3>
 
 			<div className="passwords-container p-5 lg:p-10 mt-8 flex flex-wrap justify-center">
