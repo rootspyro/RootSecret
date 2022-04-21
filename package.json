@@ -28,7 +28,7 @@
     "crypto": "^1.0.1",
     "jsonwebtoken": "^8.5.1",
     "next": "^12.1.0",
-    "react": "^17.0.2",
+    "react": "^18.0.0",
     "react-components": "^0.5.1",
     "react-tsparticles": "^1.42.4"
   },

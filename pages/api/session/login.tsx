@@ -30,6 +30,8 @@ export default async function Login(req : NextApiRequest, res : NextApiResponse)
 		else { 
 			res.json({ error :  "Invalid username or password" })
 		}
+	} else { 
+		res.json({ error : "Invalid request" })
 	}
 }
 
