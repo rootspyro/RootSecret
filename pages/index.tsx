@@ -16,7 +16,7 @@ export default function Index(){
 	const [ user, setUser ] = useState<any>('');
 
 	const [ deleted , setDeleted ] = useState( false );
-	
+
 	async function getPasswords(id : number){
 		// passwords
 		const passwords = await fetch("/api/passwords/"+ id, { 

@@ -139,8 +139,8 @@ export default function NPassword(){
 				<h1 className="mt-20 font-bold text-3xl text-theme w-full text-center">New<span className="font-normal">_Password</span></h1>
 				<form onSubmit={NewPassword} >
 					<input required type="text" placeholder="App name" value={appName} onChange={ e => setAppName(e.target.value) }/> <br />
-					<input type="text" placeholder="Username" value={username} onChange={ e => setUsername(e.target.value) }/> <br />
-					<input type="text" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
+					<input type="text" placeholder="Username (optional)" value={username} onChange={ e => setUsername(e.target.value) }/> <br />
+					<input type="text" placeholder="Email (optional)" value={email} onChange={ e => setEmail(e.target.value) }/> <br />
 					<input required type="password" placeholder="New password" value={password} onChange={ e => setPassword(e.target.value) }/> <br />
 					<input required type="password" placeholder="Confirm password" value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value) }/> <br /> <br />
 					<input required type="password" placeholder="RootSecret password" value={userPassword} onChange={ e => setUserPassword(e.target.value) }/> <br />
